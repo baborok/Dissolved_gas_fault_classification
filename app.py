@@ -24,7 +24,7 @@ def transformer(Водород,Кислород,Азот,Метан,CO,CO2,Эт�
     elif 17<=x<=28:
         transformer_index = 3
     elif 6<=x<=16:
-        transformer_index = 4
+        transformer_index = 4   
     elif x<=5:
         transformer_index = 5
 
@@ -103,7 +103,7 @@ def SetLED(window, key, color):
     graph.erase()
     graph.draw_circle((0, 0), 48, fill_color=color, line_color=color)
 
-layout = [[sg.Graph((640, 480), (0, 0), (640, 480), key='Graph1'), [sg.Text('Индикатор состояния трансформатора', size=(30,1))],[sg.Text('Индекс'), LEDIndicator('_cpu_')]],[sg.Button('Run'), sg.Button('Выход')]]
+layout = [[sg.Graph((640, 480), (0, 0), (640, 480), key='Graph1'), [sg.Text('Индикатор состояния трансформатора', size=(30,1))],[sg.Text('Индекс состояния'), LEDIndicator('_cpu_'),[sg.Text(font=('Helvetica', 15), key='-TEXT1-', text_color='black')]]],[sg.Button('Пауза'), sg.Button('Выход')]]
 window = sg.Window('Индекс состояния трансформатора', layout, finalize=True)
 
 
@@ -116,7 +116,7 @@ pack_figure(graph1, fig)
 animate(100,xs,ys)
 
 
-def cvet():
+def cvet(): 
     color=None
     if myArray == 1:
         color = 'green'
@@ -167,6 +167,7 @@ while True:
         cock()
         animate(100,xs,ys)
     SetLED(window, '_cpu_', cvet())
+    window['-TEXT1-'].update(f"Индекс состояния {myArray}")
      
 
 window.close()
