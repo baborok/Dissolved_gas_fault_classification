@@ -10,6 +10,8 @@ from matplotlib import use as use_agg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import PySimpleGUI as sg
+from statsmodels.tsa.ar_model import AutoReg
+
 
 model = load_model('model.h5')
 
@@ -145,13 +147,22 @@ def index():
         transformer_index = f'Индекс состояния трансформатора 5'
     return transformer_index
 
-def logs():
+#def logs():
     f = open("log.txt", "a")
     f.write('\n')
     f.write(str(index()))
     f.write('  ')
     f.write(str(dt.datetime.now()))
     f.close()
+
+data = np.array([0])
+
+def sohr():
+    global myArray
+    global data
+    data = np.append(data, myArray)
+    return data
+    
 
 
 while True:
@@ -163,7 +174,8 @@ while True:
     if event in (None, 'Выход'):
             break
     elif event == sg.TIMEOUT_EVENT:
-        logs()
+        sohr()
+        #logs()
         cock()
         animate(100,xs,ys)
     SetLED(window, '_cpu_', cvet())
