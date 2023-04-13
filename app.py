@@ -10,7 +10,6 @@ from matplotlib import use as use_agg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import PySimpleGUI as sg
-from statsmodels.tsa.ar_model import AutoReg
 
 
 model = load_model('model.h5')
@@ -37,20 +36,20 @@ myArray=0
 
 def cock():
     global myArray
-    a = random.randint(12886)
-    b = random.randint(21800)
-    c = random.randint(60600)
-    d = random.randint(7406)
-    e = random.randint(520)
-    f = random.randint(2480)
-    g = random.randint(16684)
-    h = random.randint(1450)
-    j = random.randint(164)
-    k = random.randint(500)/100
-    l = random.randint(100)
-    z = random.randint(60)
-    m = random.randint(70)
-    v = random.randint(30)
+    a = random.randint(7000,10000)
+    b = random.randint(7000,10000)
+    c = random.randint(7000,10000)
+    d = random.randint(7000,10000)
+    e = random.randint(7000,10000)
+    f = random.randint(7000,10000)
+    g = 1000
+    h = 1000
+    j = 1000
+    k = 1000
+    l = 70
+    z = 40
+    m = 50
+    v = 20
         
     myArray = transformer(a,b,c,d,d,e,f,g,h,j,k,l,z,m,v)
         
@@ -156,11 +155,23 @@ def index():
     f.close()
 
 data = np.array([0])
+x=np.array([0])
+y=np.array([0])
+
 
 def sohr():
     global myArray
     global data
+    global xs
+    global ys
+    global y
+    global x
+    y=np.append(y, ys)
+    x=np.append(x, xs)
+    df = pd.DataFrame({"date" : x, "index" : y})
+    df.to_csv("sub1.csv", index=False)
     data = np.append(data, myArray)
+    print (x,y)
     return data
     
 
