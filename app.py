@@ -152,7 +152,7 @@ def animate1(i, xs1, ys1):
 
     #Draw x and y lists
     ax2.clear()
-    ax2.plot(xs1, ys1)
+    ax2.plot(xs1, ys1, 'k')
     ax2.set_title("Процент состояния")
     ax2.set_xlabel("Время")
     ax2.set_ylabel("Процент индекса")
@@ -271,7 +271,7 @@ def animate2(i,xs2, ys2):
 
     # Draw x and y lists
     ax3.clear()
-    ax3.plot(xs2, ys2)
+    ax3.plot(xs2, ys2, 'm')
     ax3.set_title("Предсказание индекса трансформатора")
     ax3.set_xlabel("Время")
     ax3.set_ylabel("Индекс")
