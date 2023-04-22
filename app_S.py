@@ -194,6 +194,11 @@ def SetLED(window, key, color):
     graph.erase()
     graph.draw_circle((0, 0), 48, fill_color=color, line_color=color)
 
+def SetLED1(window, key, color):
+    graph = window[key]
+    graph.erase()
+    graph.draw_circle((0, 0), 30, fill_color=color, line_color=color)
+
 color = '#68748c'
 def color1():
     global color
@@ -203,7 +208,7 @@ def color1():
     else: color ='#68748c'
     return color
 
-layout = [[sg.Graph((640, 480), (0, 0), (640, 480), key='Graph1'),sg.Graph((640, 480), (0, 0), (640, 480), key='Graph2')], [sg.Text('Индикатор состояния трансформатора', size=(30,1)), [sg.Text('Индекс состояния'), LEDIndicator('_cpu1_')],[sg.Text('Отлично'), LEDIndicator('_cpu_')], [sg.Text('Хорошо'), LEDIndicator('_ram_')], [LEDIndicator('_temp_'), sg.Text('Внимание')], [LEDIndicator('_server1_'), sg.Text('Неисправность')],[sg.Text(font=('Helvetica', 15), key='-TEXT1-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT2-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT3-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT4-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT5-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT6-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT7-', text_color='black')]]],[sg.Button('Пауза'), sg.Button('Выход')]
+layout = [[sg.Graph((640, 480), (0, 0), (640, 480), key='Graph1'),sg.Graph((640, 480), (0, 0), (640, 480), key='Graph2')], [sg.Text('Индикатор состояния трансформатора', size=(30,1)), [sg.Text('Индекс состояния'), LEDIndicator('_cpu1_')], [LEDIndicator1('_cpu_'), sg.Text('Отлично')], [LEDIndicator1('_ram_'), sg.Text('Хорошо')], [LEDIndicator1('_temp_'), sg.Text('Внимание')], [LEDIndicator1('_server1_'), sg.Text('Неисправность')],[sg.Text(font=('Helvetica', 15), key='-TEXT1-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT2-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT3-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT4-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT5-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT6-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT7-', text_color='black')]]],[sg.Button('Пауза'), sg.Button('Выход')]
 window = sg.Window('Индекс состояния трансформатора', layout, finalize=True, background_color=color)
 
 
@@ -324,10 +329,10 @@ while True:
         animate1(100,xs1,ys1)
         sound1()
     SetLED(window, '_cpu1_', cvet())
-    SetLED(window, '_cpu_', 'green')
-    SetLED(window, '_ram_', 'yellow')
-    SetLED(window, '_temp_', 'orange')
-    SetLED(window, '_server1_', 'red')
+    SetLED1(window, '_cpu_', 'green')
+    SetLED1(window, '_ram_', 'yellow')
+    SetLED1(window, '_temp_', 'orange')
+    SetLED1(window, '_server1_', 'red')
     window['-TEXT1-'].update(f"Индекс состояния {myArray}")
     window['-TEXT2-'].update(f"Водород {a} ppm")
     window['-TEXT3-'].update(f"Кислород {b} ppm")
