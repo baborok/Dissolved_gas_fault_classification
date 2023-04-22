@@ -82,10 +82,10 @@ def cock():
     global f
     a = random.randint(7000,10000)
     b = random.randint(7000,10000)
-    c = random.randint(10,10000)
-    d = random.randint(10,10000)
-    e = random.randint(10,10000)
-    f = random.randint(10,10000)
+    c = random.randint(7000,10000)
+    d = random.randint(7000,10000)
+    e = random.randint(7000,10000)
+    f = random.randint(7000,10000)
     g = 1000
     h = 1000
     j = 1000
@@ -181,6 +181,14 @@ def LEDIndicator(key=None, radius=100):
              graph_top_right=(radius, radius),
              pad=(0, 0), key=key)
 
+def LEDIndicator1(key=None, radius=50):
+    return sg.Graph(canvas_size=(radius, radius),
+             graph_bottom_left=(-radius, -radius),
+             graph_top_right=(radius, radius),
+             pad=(0, 0), key=key)
+
+
+
 def SetLED(window, key, color):
     graph = window[key]
     graph.erase()
@@ -195,7 +203,7 @@ def color1():
     else: color ='#68748c'
     return color
 
-layout = [[sg.Graph((640, 480), (0, 0), (640, 480), key='Graph1'),sg.Graph((640, 480), (0, 0), (640, 480), key='Graph2')], [sg.Text('Индикатор состояния трансформатора', size=(30,1))],[sg.Text('Индекс состояния'), LEDIndicator('_cpu_'),[sg.Text(font=('Helvetica', 15), key='-TEXT1-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT2-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT3-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT4-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT5-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT6-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT7-', text_color='black')]]],[sg.Button('Пауза'), sg.Button('Выход')]
+layout = [[sg.Graph((640, 480), (0, 0), (640, 480), key='Graph1'),sg.Graph((640, 480), (0, 0), (640, 480), key='Graph2')], [sg.Text('Индикатор состояния трансформатора', size=(30,1)), [sg.Text('Индекс состояния'), LEDIndicator('_cpu1_')],[sg.Text('Отлично'), LEDIndicator('_cpu_')], [sg.Text('Хорошо'), LEDIndicator('_ram_')], [LEDIndicator('_temp_'), sg.Text('Внимание')], [LEDIndicator('_server1_'), sg.Text('Неисправность')],[sg.Text(font=('Helvetica', 15), key='-TEXT1-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT2-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT3-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT4-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT5-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT6-', text_color='black')],[sg.Text(font=('Helvetica', 12), key='-TEXT7-', text_color='black')]]],[sg.Button('Пауза'), sg.Button('Выход')]
 window = sg.Window('Индекс состояния трансформатора', layout, finalize=True, background_color=color)
 
 
@@ -235,11 +243,11 @@ def cvet():
     if myArray == 1:
         color = 'green'
     elif myArray == 2:
-        color ='blue'
+        color ='yellow'
     elif myArray == 3:
-        color = 'yellow'
-    elif myArray ==4:
         color = 'orange'
+    elif myArray ==4:
+        color = 'red'
     elif myArray==5:
         color = 'red'
 
@@ -271,6 +279,12 @@ data = np.array([0])
 x=np.array([0])
 y=np.array([0])
 
+def pop():
+    global myArray
+    if myArray == 5:
+        sg.popup_auto_close('Индекс состояния 5')
+
+
 
 #def sohr():
     #global myArray
@@ -294,10 +308,14 @@ while True:
     cock()  
     event, values = window.read(timeout=10)
     print(event, values)
+    
+
+    
 
     if event in (None, 'Выход'):
             break
     elif event == sg.TIMEOUT_EVENT:
+        pop()
         procg()
         #sohr()
         #logs()
@@ -305,7 +323,11 @@ while True:
         animate(100,xs,ys)
         animate1(100,xs1,ys1)
         sound1()
-    SetLED(window, '_cpu_', cvet())
+    SetLED(window, '_cpu1_', cvet())
+    SetLED(window, '_cpu_', 'green')
+    SetLED(window, '_ram_', 'yellow')
+    SetLED(window, '_temp_', 'orange')
+    SetLED(window, '_server1_', 'red')
     window['-TEXT1-'].update(f"Индекс состояния {myArray}")
     window['-TEXT2-'].update(f"Водород {a} ppm")
     window['-TEXT3-'].update(f"Кислород {b} ppm")
@@ -313,6 +335,7 @@ while True:
     window['-TEXT5-'].update(f"Метан {d} ppm")
     window['-TEXT6-'].update(f"CO {e} ppm")
     window['-TEXT7-'].update(f"CO2 {f} ppm")
+    
    
      
 
