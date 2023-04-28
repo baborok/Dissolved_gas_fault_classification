@@ -369,8 +369,8 @@ y=np.array([0])
 def pop():
     global myArray
     if myArray == 5:
-        title = "Action completed successfully"
-        message = "This message is intended to inform you that the action you have performed has been successful. There is no need for further action."
+        title = "Индекс состояния 5"
+        message = "Необходимо обратать внимание на состояние устройства"
         display_notification(title, message, img_error, 10000, use_fade_in=True)
 
 
@@ -408,7 +408,7 @@ def display_notification(title, message, icon, display_duration_in_ms=DEFAULT_DI
 
     screen_res_x, screen_res_y = sg.Window.get_screen_size()
     win_margin = WIN_MARGIN  # distance from screen edges
-    win_width, win_height = 564, 566 + (14.8 * win_msg_lines)
+    win_width, win_height = 864, 566 + (14.8 * win_msg_lines)
     win_location = location if location is not None else (screen_res_x - screen_res_x/2, screen_res_y - screen_res_y/2)
 
     layout = [[sg.Graph(canvas_size=(win_width, win_height), graph_bottom_left=(0, win_height), graph_top_right=(win_width, 0), key="-GRAPH-",
@@ -420,8 +420,8 @@ def display_notification(title, message, icon, display_duration_in_ms=DEFAULT_DI
 
     window["-GRAPH-"].draw_rectangle((win_width, win_height), (-win_width, -win_height), fill_color=WIN_COLOR, line_color=WIN_COLOR)
     window["-GRAPH-"].draw_image(data=icon, location=(20, 20))
-    window["-GRAPH-"].draw_text(title, location=(64, 20), color=TEXT_COLOR, font=("Arial", 16, "bold"), text_location=sg.TEXT_LOCATION_TOP_LEFT)
-    window["-GRAPH-"].draw_text(message, location=(64, 44), color=TEXT_COLOR, font=("Arial", 15), text_location=sg.TEXT_LOCATION_TOP_LEFT)
+    window["-GRAPH-"].draw_text(title, location=(64, 20), color=TEXT_COLOR, font=("Arial", 24, "bold"), text_location=sg.TEXT_LOCATION_TOP_LEFT)
+    window["-GRAPH-"].draw_text(message, location=(64, 44), color=TEXT_COLOR, font=("Arial", 26), text_location=sg.TEXT_LOCATION_TOP_LEFT)
 
     # change the cursor into a "hand" when hovering over the window to give user hint that clicking does something
     window['-GRAPH-'].set_cursor('hand2')
